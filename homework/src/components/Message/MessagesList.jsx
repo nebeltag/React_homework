@@ -40,17 +40,15 @@ export class Button extends React.Component {
 class MessagesList extends React.Component {
 
   state = {
-    // messages: []
-    // name: '',
-    // text: ''
-    // messages: [],
+    messages: []
+
   };
 
 
 
   updateMessages = (message) => {
-    this.setState(message, () => {
-      console.log(this.state);
+    this.setState({ messages: [...this.state.messages, message] }, () => {
+      console.log(this.state.messages);
     });
   }
 
@@ -61,10 +59,11 @@ class MessagesList extends React.Component {
   // }
 
   render() {
+    // const text = [...this.state.messages].find(item => item.text);
     return (
       <div className="messageBox">
-        <p><span>{this.state.text}</span></p>
-        <p><span>{this.state.name}</span></p>
+        {/* <p><span>{text}</span></p> */}
+        {/* <p><span>{this.state.messages.name}</span></p> */}
         <Button updateMessages={this.updateMessages} />
       </div>
     )

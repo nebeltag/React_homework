@@ -4,10 +4,10 @@ import './style.css';
 
 export class Button extends React.Component {
   state = {
-    message: {
-      text: '',
-      name: ''
-    }
+
+    text: '',
+    name: ''
+
   }
 
   inputText = (event) => {
