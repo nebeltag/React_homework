@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.messageBox {
+  width: 800px;
+  min-height: 100px;
+  border-radius: 10px;
+  background-color: #29222c;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* .messageBox span {
+  max-width: 400px;
+  min-height: 100px;
+  color: antiquewhite;
+  background-color: #29222c;
+} */
+
+
+.formStyle {
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #29222c;
+  border-radius: 5px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-top: 40px;
+
+}
+
+.inputStyle {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 15px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.buttonStyle {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #394069;
+}
+
+.textField {
+  background-color: bisque;
+  margin-right: 20px;
+  border: 1px solid black;
+}
+
+.sendButton {
+  margin-top: 10px;
+}

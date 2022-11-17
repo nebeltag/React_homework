@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Message from './Message';
+// import Message from './Message';
 import reportWebVitals from './reportWebVitals';
 
 const myName = 'Maxim';
 const showRed = true;
-const message = 'Hello, I am message from index.js!';
+// const message = 'Hello, I am message from index.js!';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App name={myName} showRed={showRed} />
-    <Message message={message} />
+    {/* <Message message={message} /> */}
   </React.StrictMode>
 );
 
