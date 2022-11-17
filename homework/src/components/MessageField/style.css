@@ -8,6 +8,8 @@
   min-height: 100px;
   border-radius: 10px;
   background-color: #29222c;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* .messageBox span {

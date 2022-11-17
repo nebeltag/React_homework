@@ -1,6 +1,8 @@
 import React from "react";
 import './style.css';
 import PropTypes from 'prop-types';
+import { Typography } from "@mui/material";
+
 
 export default class Message extends React.Component {
 
@@ -9,10 +11,21 @@ export default class Message extends React.Component {
   };
 
   render() {
-    return <>
-      <div>{this.props.sender}:  {this.props.text}</div>
 
-    </>
+    return (
+
+
+      <Typography style={{ marginBottom: '15px' }}>
+
+        <span className="sender">{this.props.sender}:</span>
+        <span className="text">{this.props.text}</span>
+
+      </Typography>
+
+
+
+
+    )
   }
 }
 

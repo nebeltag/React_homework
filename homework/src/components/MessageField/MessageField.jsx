@@ -1,54 +1,27 @@
 import React, { Component } from 'react';
 import './style.css';
-import { Button, TextField, createTheme } from "@mui/material";
+import { Button, TextField, createRef, createTheme } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
+// import { useRef, createRef, focus } from 'react';
 
-const theme = createTheme({
-  overrides: {
-    TextField: {
-      FormControl: {
-        margin: '0 0 20px 0',
-      },
-    },
-  },
-});
-
-// export class Button extends React.Component {
-//   state = {
-
-//     text: '',
-//     name: ''
-
-//   }
-
-//   handleChangeText = (event) => {
-//     this.setState({ text: event.target.value })
-//   }
-
-//   handleChangeName = (event) => {
-//     this.setState({ name: event.target.value })
-//   }
-
-//   handleClick = () => {
-//     this.props.updateMessages(this.state)
-//   }
-
-//   render() {
-//     return (
-//       <form className='formStyle'>
-//         <input className="inputStyle" type="text" placeholder="Введите сообщение"
-//           value={this.value} onChange={this.handleChangeText} />
-//         <input className="inputStyle" type="text" placeholder="Введите имя" value={this.value} onChange={this.handleChangeName} />
-
-//         <button className="buttonStyle" type="button" onClick={this.handleClick}>Отправить</button>
-//       </form>
-//     )
-//   }
-
-// }
 
 export default class MessageField extends Component {
+
+  /// Автофокус не работает по умолчанию с инпутами MUI(требуется кастомизация инпутов)
+
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
+  }
+
+  focusTextInput() {
+
+    this.textInput.current.focus();
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
 
   state = {
 
@@ -106,12 +79,21 @@ export default class MessageField extends Component {
       this.setState({ answered: true });
     }
   }
+
+  // componentDidMount() {
+
+  //   this.focusTextInput();
+  // }
+
+
   componentDidUpdate() {
     if (!this.state.answered) {
       setTimeout(() => {
         this.sendMessage('Leave me', 'Bot');
       }, 1000)
     }
+
+    // this.focusTextInput();
     // if (!this.state.answered) this.sendMessage('FuckOff', 'Bot');
   }
 
@@ -125,20 +107,24 @@ export default class MessageField extends Component {
       <div className="messageBox">
         {/* <p>{this.state.text}</p>
         <p>{this.state.name}</p> */}
+
         {MessageElements}
+
         <form className='formStyle'>
 
           {/* <input className="inputStyle"
             type="text"
             placeholder="Введите сообщение"
             value={this.value}
-            onChange={this.handleChangeText} />
+            onChange={this.handleChangeText}
+            ref={this.textInput}
+          /> */}
 
-          <input className="inputStyle"
+          {/* <input className="inputStyle"
             type="text"
             placeholder="Введите имя"
             value={this.value}
-            onChange={this.handleChangeName} /> */}
+            onChange={this.handleChangeName} ref={this.textInput} /> */}
 
           {/* <button className="buttonStyle"
             type="button"
@@ -147,17 +133,22 @@ export default class MessageField extends Component {
             Отправить</button> */}
 
           <TextField id="filled-basic" label="Введите сообщение" variant="filled" className='textField'
-            value={this.value} theme={theme}
+            style={{ marginTop: '25px' }}
+            value={this.value}
             onChange={this.handleChangeText}
+          // ref={this.textInput}
           />
 
           <TextField id="filled-basic" label="Введите имя" variant="filled" className='textField'
+            style={{ marginTop: '25px' }}
             value={this.value}
             onChange={this.handleChangeName}
           />
 
           <Button type="button" variant="contained" endIcon={<SendIcon />} className='sendButton'
-            onClick={this.handleSend}>
+            onClick={this.handleSend}
+            style={{ margin: '25px 0', width: '219px', fontSize: '18px' }}
+          >
             Send
           </Button>
 
