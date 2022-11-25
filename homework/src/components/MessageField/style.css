@@ -76,5 +76,6 @@
 .messageElements {
   box-sizing: border-box;
   padding: 0 10px;
+  width: 60%;
   /* overflow-y: scroll; */
 }
