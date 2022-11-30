@@ -4,12 +4,20 @@
 }
 
 .messageBox {
-  width: 800px;
-  min-height: 100px;
+  width: 75%;
+  height: 100%;
   border-radius: 10px;
-  background-color: #29222c;
-  padding: 20px;
+  /* background-color: #29222c; */
+  background-color: #282c34;
+  padding: 5px 20px 0 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.messages {
+  display: block;
 }
 
 /* .messageBox span {
@@ -25,11 +33,13 @@
   min-height: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #29222c;
-  border-radius: 5px;
-  padding: 0 10px;
+  /* align-items: center;
+  justify-content: center; */
+  /* background-color: #29222c; */
+  background-color: transparent;
+  border: 1px solid #1976d2;
+  border-radius: 10px;
+  padding: 10px;
   box-sizing: border-box;
   margin-top: 40px;
 
@@ -61,4 +71,11 @@
 
 .sendButton {
   margin-top: 10px;
+}
+
+.messageElements {
+  box-sizing: border-box;
+  padding: 0 10px;
+  width: 60%;
+  /* overflow-y: scroll; */
 }

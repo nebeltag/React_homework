@@ -1,13 +1,26 @@
 .sender {
-  margin-right: 10px;
-  color: rgb(27 138 235);
+  /* margin-right: 10px; */
+  /* color: rgb(27 138 235); */
+  min-height: 50px;
+  margin-bottom: 10px;
+
+}
+
+.sender span {
+  font-size: 18px;
 }
 
 
 .text {
-  color: coral;
+  /* color: coral; */
+  min-height: 50px;
+  margin-bottom: 10px;
 }
 
-/* .messageBox {
-  margin-bottom: 15px;
-} */
+.text span {
+  font-size: 18px;
+}
+
+.messageBox {
+  align-items: center;
+}

@@ -107,8 +107,9 @@ export default class MessageField extends Component {
       <div className="messageBox">
         {/* <p>{this.state.text}</p>
         <p>{this.state.name}</p> */}
-
-        {MessageElements}
+        <div className='messageElements'>
+          {MessageElements}
+        </div>
 
         <form className='formStyle'>
 
@@ -132,22 +133,32 @@ export default class MessageField extends Component {
             onClick={this.handleSend}>
             Отправить</button> */}
 
-          <TextField id="filled-basic" label="Введите сообщение" variant="filled" className='textField'
-            style={{ marginTop: '25px' }}
+          <TextField id="filled-basic"
+            autoFocus
+            label="Введите сообщение"
+            variant="filled"
+            className='textField'
+            style={{ marginBottom: '25px', borderRadius: '5px' }}
             value={this.value}
             onChange={this.handleChangeText}
           // ref={this.textInput}
           />
 
-          <TextField id="filled-basic" label="Введите имя" variant="filled" className='textField'
-            style={{ marginTop: '25px' }}
+          <TextField id="filled-basic"
+            label="Введите имя"
+            variant="filled"
+            className='textField'
+            style={{ marginBottom: '25px', borderRadius: '5px' }}
             value={this.value}
             onChange={this.handleChangeName}
           />
 
-          <Button type="button" variant="contained" endIcon={<SendIcon />} className='sendButton'
+          <Button type="button"
+            variant="contained"
+            endIcon={<SendIcon />}
+            className='sendButton'
             onClick={this.handleSend}
-            style={{ margin: '25px 0', width: '219px', fontSize: '18px' }}
+            style={{ margin: '0 0 25px 0', width: '219px', fontSize: '18px' }}
           >
             Send
           </Button>
