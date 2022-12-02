@@ -1,0 +1,12 @@
+.text {
+  color: #9cdcfe;
+
+}
+
+.textWrp {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+}

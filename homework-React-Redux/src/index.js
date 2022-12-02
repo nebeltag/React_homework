@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import bootstrap from 'bootstrap';
+// import bootstrap from 'bootstrap';
 import Router from './router.jsx';
-
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Store from './store/store.js';
 
 
 // import Layout from './components/Layout/Layout.jsx';
@@ -18,14 +19,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-  <BrowserRouter>
-    {/* <Layout /> */}
-    <Router />
-    {/* <App name={myName} showRed={showRed} /> */}
-    {/* <Message message={message} /> */}
-  </BrowserRouter>
-
+  <Provider store={Store()}>
+    <BrowserRouter>
+      {/* <Layout /> */}
+      <Router />
+      {/* <App name={myName} showRed={showRed} /> */}
+      {/* <Message message={message} /> */}
+    </BrowserRouter>
+  </Provider>
 );
 
 
