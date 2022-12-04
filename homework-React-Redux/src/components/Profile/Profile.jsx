@@ -14,7 +14,8 @@ class Profile extends Component {
   render() {
     console.log(this.props);
     let message = 'Profile';
-    let { profile } = this.props;
+    let { profile, changeName } = this.props;
+    // let { changeName } = this.props;
 
     return (
       <div>
@@ -26,6 +27,7 @@ class Profile extends Component {
               type='checkbox'
               // checked={changeName}
               onChange={changeName}
+
             // value={changeName}
             />
             <h1 className='text'>

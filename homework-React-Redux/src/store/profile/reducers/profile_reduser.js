@@ -2,7 +2,7 @@ import update from "react-addons-update";
 import { CHANGE_NAME } from '../actions/profile_action.js'
 
 const defaultState = {
-  profile: 'Max',
+  profile: '',
 
 }
 
