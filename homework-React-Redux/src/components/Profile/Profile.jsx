@@ -40,8 +40,8 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ profileReduser }) => ({
-  profile: profileReduser.profile,
+const mapStateToProps = ({ profileReducer }) => ({
+  profile: profileReducer.profile,
 
 })
 const mapDispatchToProps = dispatch => bindActionCreators({ changeName }, dispatch)

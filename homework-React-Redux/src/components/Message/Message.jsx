@@ -11,19 +11,21 @@ export default class Message extends React.Component {
   };
 
   render() {
-    const message = this.props.sender !== 'Bot' ?
+    let { sender, text } = this.props;
+    const message = sender !== 'Bot' ?
 
       <Stack direction="row" spacing={1}
         style={{
           display: 'flex', flexDirection: 'column',
-          alignItems: "flex-end"
+          alignItems: "flex-end", marginBottom: '20px'
         }}>
+        <span className='senderTitle'>{sender}</span>
         <Chip
-          avatar={<Avatar alt={this.props.sender}
+          avatar={<Avatar alt={sender}
             src="/broken-image.jpg"
           >
           </Avatar>}
-          label={this.props.text}
+          label={text}
 
           color="primary"
           className='sender'
@@ -35,14 +37,15 @@ export default class Message extends React.Component {
       <Stack direction="row" spacing={1}
         style={{
           display: 'flex', flexDirection: 'column',
-          alignItems: "flex-start"
+          alignItems: "flex-start", marginBottom: '20px'
         }}>
+        <span className='senderBotTitle'>{sender}</span>
         <Chip
-          avatar={<Avatar alt={this.props.sender}
+          avatar={<Avatar alt={sender}
             src="/broken-image.jpg"
           >
           </Avatar>}
-          label={this.props.text}
+          label={text}
 
           color="success"
           className='text'

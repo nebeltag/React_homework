@@ -17,6 +17,7 @@ import Store from './store/store.js';
 // const showRed = true;
 // const message = 'Hello, I am message from index.js!';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={Store()}>

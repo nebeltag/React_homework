@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout.jsx';
 import Home from './components/Home/Home.jsx';
-import Profile from './components/Profile/Profile.jsx'
+import Profile from './components/Profile/Profile.jsx';
+
 
 
 export default class Router extends Component {
