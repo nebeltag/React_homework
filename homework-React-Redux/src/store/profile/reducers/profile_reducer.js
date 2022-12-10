@@ -1,17 +1,18 @@
 import update from "react-addons-update";
-import { CHANGE_NAME } from '../actions/profile_action.js'
+import { SET_NAME } from '../actions/profile_action.js'
 
 const defaultState = {
-  profile: '',
+  profileName: ''
 
 }
 
 export default (store = defaultState, action) => {
   switch (action.type) {
 
-    case CHANGE_NAME:
+    case SET_NAME:
+      let { newProfileName } = action;
       return update(store, {
-        $merge: { profile: 'Maxim' }
+        $merge: { profileName: newProfileName }
       })
 
     default:

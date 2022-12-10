@@ -1,7 +1,7 @@
-export let CHANGE_NAME = '@@name/CHANGE';
+export let SET_NAME = '@@name/SET';
 
-export let changeName = (profile) => ({
-  type: CHANGE_NAME,
-  profile
+export let setName = (newProfileName) => ({
+  type: SET_NAME,
+  newProfileName
 
 })

@@ -6,16 +6,37 @@ import logo from '../Home/logo.svg'
 import Header from '../Header/Header.jsx';
 import { connect } from 'react-redux/es/exports';
 import { bindActionCreators } from 'redux';
-import { changeName } from '../../store/profile/actions/profile_action.js'
+import { setName } from '../../store/profile/actions/profile_action.js'
 
 
 class Profile extends Component {
 
+  handleChangeName = (event) => {
+    if (event.keyCode !== 13) {
+      this.setState({ newProfileName: event.target.value });
+    } else {
+      this.handleSend();
+    }
+  }
+
+  handleSend = () => {
+    let { newProfileName } = this.state;
+
+    // this.sendMessage(text, sender);
+    // let id = Object.keys(this.props.messages).length + 1;
+    this.props.setName(newProfileName);
+
+
+    // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
+    //   console.log(this.state.messages);
+    // });
+  }
+
   render() {
     console.log(this.props);
     let message = 'Profile';
-    let { profile, changeName } = this.props;
-    // let { changeName } = this.props;
+    let { profileName } = this.props;
+
 
     return (
       <div>
@@ -23,17 +44,28 @@ class Profile extends Component {
         <div className="App">
           <img src={logo} className="App-logo" alt="logo" />
           <div className='textWrp'>
-            <input
+            {/* <input
               type='checkbox'
-              // checked={changeName}
+              checked={changeName}
               onChange={changeName}
 
-            // value={changeName}
-            />
+            value={changeName}
+            />*/}
             <h1 className='text'>
-              {profile}
+              {profileName}
             </h1>
           </div>
+          <div>
+            <input type="text"
+              value={this.value}
+              onChange={this.handleChangeName} />
+          </div>
+          <div>
+            <button
+              onClick={this.handleSend}>
+              Profile</button>
+          </div>
+
         </div>
       </div>
     )
@@ -41,8 +73,8 @@ class Profile extends Component {
 }
 
 const mapStateToProps = ({ profileReducer }) => ({
-  profile: profileReducer.profile,
+  profileName: profileReducer.profileName,
 
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ changeName }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ setName }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
