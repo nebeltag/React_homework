@@ -1,6 +1,6 @@
 import update from "react-addons-update";
-// import { SEND_MSG } from "../actions/msg_action.js";
-import * as actTypes from '../actions/actionTypes.js';
+import { SEND_MSG } from "../actions/msg_action.js";
+
 
 
 const defaultStore = {
@@ -13,7 +13,7 @@ const defaultStore = {
 export default (store = defaultStore, action) => {
 
   switch (action.type) {
-    case actTypes.SEND_MSG: {
+    case SEND_MSG: {
       let { messageId, sender, text } = action;
       return update(store, {
         messages: { $merge: { [messageId]: { sender, text } } }

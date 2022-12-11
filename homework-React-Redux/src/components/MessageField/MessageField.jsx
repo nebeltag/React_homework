@@ -43,6 +43,7 @@ class MessageField extends Component {
   handleChangeText = (event) => {
     if (event.keyCode !== 13) {
       this.setState({ text: event.target.value, sender: 'Me' });
+      console.log(this.state.text);
     } else {
       this.handleSend();
     }
@@ -58,12 +59,14 @@ class MessageField extends Component {
 
   handleSend = () => {
     let { text } = this.state;
-    let { sender } = this.state;
+    // let { sender } = this.state;
     // let s = sender ? sender : 'Bot';
     // let t = text ? text : 'FuckOff';
     // this.sendMessage(text, sender);
     let id = Object.keys(this.props.messages).length + 1;
     this.props.sendMessage(id, 'Me', text);
+
+
 
 
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {

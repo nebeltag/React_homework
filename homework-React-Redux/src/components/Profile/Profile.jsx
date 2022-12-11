@@ -6,7 +6,7 @@ import logo from '../Home/logo.svg'
 import Header from '../Header/Header.jsx';
 import { connect } from 'react-redux/es/exports';
 import { bindActionCreators } from 'redux';
-import { setName } from '../../store/profile/actions/profile_action.js'
+import { setName, clearInp } from '../../store/profile/actions/profile_action.js'
 
 
 class Profile extends Component {
@@ -26,16 +26,21 @@ class Profile extends Component {
     // let id = Object.keys(this.props.messages).length + 1;
     this.props.setName(newProfileName);
 
-
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
     //   console.log(this.state.messages);
     // });
+  }
+
+  handleClearInp = () => {
+    let { value } = this.state;
+    this.props.clearInp(value);
   }
 
   render() {
     console.log(this.props);
     let message = 'Profile';
     let { profileName } = this.props;
+
 
 
     return (
@@ -64,6 +69,9 @@ class Profile extends Component {
             <button
               onClick={this.handleSend}>
               Profile</button>
+            <button
+              onClick={this.handleClearInp}>
+              clear</button>
           </div>
 
         </div>
@@ -74,7 +82,7 @@ class Profile extends Component {
 
 const mapStateToProps = ({ profileReducer }) => ({
   profileName: profileReducer.profileName,
-
+  value: profileReducer.value
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ setName }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ setName, clearInp }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
