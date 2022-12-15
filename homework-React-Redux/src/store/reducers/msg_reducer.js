@@ -1,5 +1,5 @@
 import update from "react-addons-update";
-import { SEND_MSG } from "../actions/msg_action.js";
+import { SEND_MSG, DELETE_MSG } from "../actions/msg_action.js";
 
 
 
@@ -17,6 +17,13 @@ export default (store = defaultStore, action) => {
       let { messageId, sender, text } = action;
       return update(store, {
         messages: { $merge: { [messageId]: { sender, text } } }
+      })
+    }
+
+    case DELETE_MSG: {
+      let { myId, id } = action;
+      return update(store, {
+        messages: { $merge: { id, myId } }
       })
     }
     default:

@@ -6,7 +6,7 @@ import Message from '../Message/Message.jsx';
 // import { useRef, createRef, focus } from 'react';
 import { connect } from 'react-redux/es/exports';
 import { bindActionCreators } from 'redux';
-import { sendMessage } from '../../store/actions/msg_action.js'
+import { sendMessage, deleteMessage } from '../../store/actions/msg_action.js'
 
 
 
@@ -41,9 +41,13 @@ class MessageField extends Component {
   };
 
   handleChangeText = (event) => {
+    let { profileName } = this.props;
     if (event.keyCode !== 13) {
-      this.setState({ text: event.target.value, sender: 'Me' });
-      console.log(this.state.text);
+      this.setState({
+        text: event.target.value,
+        sender: profileName === '' ? 'Me' : profileName
+      });
+      // console.log(this.state.text);
     } else {
       this.handleSend();
     }
@@ -58,20 +62,26 @@ class MessageField extends Component {
   // }
 
   handleSend = () => {
-    let { text } = this.state;
+    let { text, sender } = this.state;
     // let { sender } = this.state;
     // let s = sender ? sender : 'Bot';
     // let t = text ? text : 'FuckOff';
     // this.sendMessage(text, sender);
     let id = Object.keys(this.props.messages).length + 1;
-    this.props.sendMessage(id, 'Me', text);
-
-
-
+    this.props.sendMessage(id, sender, text);
+    this.setState({ text: '' })
 
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
     //   console.log(this.state.messages);
     // });
+  }
+
+  removePost = (myId) => {
+    // let { myId } = this.props;
+    console.log(myId)
+    alert(`Id:${myId}`)
+    // let id = Object.keys(this.props.messages).length + 1;
+    // this.props.deleteMessage(myId, id)
   }
 
   // sendMessage = (text, sender) => {
@@ -110,8 +120,10 @@ class MessageField extends Component {
   render() {
     console.log(this.props);
     let { messages } = this.props;
+    let { text } = this.state;
     const MessageElements = Object.keys(messages).map((id) => (
-      <Message key={id} text={messages[id].text} sender={messages[id].sender} />
+      <Message key={id} myId={id} text={messages[id].text} sender={messages[id].sender}
+        removePost={this.removePost} />
     )
     );
     return (
@@ -150,7 +162,7 @@ class MessageField extends Component {
             variant="filled"
             className='textField'
             style={{ marginBottom: '25px', borderRadius: '5px' }}
-            value={this.value}
+            value={text}
             onChange={this.handleChangeText}
           // ref={this.textInput}
           />
@@ -179,11 +191,14 @@ class MessageField extends Component {
   }
 }
 
-const mapStateToProps = ({ msgReducer }) => ({
-  messages: msgReducer.messages,
+const mapStateToProps = ({ message, profile }) => ({
+  messages: message.messages,
+  profileName: profile.profileName,
 
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+  sendMessage, deleteMessage
+}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
 
 // export default MessageField;

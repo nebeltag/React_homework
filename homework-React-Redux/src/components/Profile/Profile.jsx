@@ -6,14 +6,20 @@ import logo from '../Home/logo.svg'
 import Header from '../Header/Header.jsx';
 import { connect } from 'react-redux/es/exports';
 import { bindActionCreators } from 'redux';
-import { setName, clearInp } from '../../store/profile/actions/profile_action.js'
+import { setName } from '../../store/profile/actions/profile_action.js'
 
 
 class Profile extends Component {
 
+  state = {
+    newProfileName: ''
+  }
+
   handleChangeName = (event) => {
+
     if (event.keyCode !== 13) {
       this.setState({ newProfileName: event.target.value });
+
     } else {
       this.handleSend();
     }
@@ -25,21 +31,24 @@ class Profile extends Component {
     // this.sendMessage(text, sender);
     // let id = Object.keys(this.props.messages).length + 1;
     this.props.setName(newProfileName);
+    this.setState({ newProfileName: '' })
 
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
     //   console.log(this.state.messages);
     // });
   }
 
-  handleClearInp = () => {
-    let { value } = this.state;
-    this.props.clearInp(value);
-  }
+  // handleClearInp = () => {
+  //   let { inpValue } = this.state;
+  //   this.props.clearInp(inpValue);
+  // }
 
   render() {
     console.log(this.props);
+    // console.log(this.value)
     let message = 'Profile';
     let { profileName } = this.props;
+    let { newProfileName } = this.state;
 
 
 
@@ -62,16 +71,16 @@ class Profile extends Component {
           </div>
           <div>
             <input type="text"
-              value={this.value}
+              value={newProfileName}
               onChange={this.handleChangeName} />
           </div>
           <div>
             <button
               onClick={this.handleSend}>
               Profile</button>
-            <button
+            {/* <button
               onClick={this.handleClearInp}>
-              clear</button>
+              clear</button> */}
           </div>
 
         </div>
@@ -80,9 +89,9 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer }) => ({
-  profileName: profileReducer.profileName,
-  value: profileReducer.value
+const mapStateToProps = ({ profile }) => ({
+  profileName: profile.profileName,
+
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ setName, clearInp }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ setName }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

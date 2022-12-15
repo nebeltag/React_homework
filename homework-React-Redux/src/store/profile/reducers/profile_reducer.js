@@ -1,11 +1,10 @@
 import update from "react-addons-update";
-import { SET_NAME, CLEAR_INP } from '../actions/profile_action.js';
+import { SET_NAME } from '../actions/profile_action.js';
 
 
 
 const defaultState = {
   profileName: ''
-
 }
 
 export default (store = defaultState, action) => {
@@ -16,11 +15,6 @@ export default (store = defaultState, action) => {
       return update(store, {
         $merge: { profileName: newProfileName }
       })
-    case CLEAR_INP:
-      let { value } = action;
-      return update(
-        value = ''
-      )
 
 
     default:
