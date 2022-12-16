@@ -21,10 +21,23 @@ export default (store = defaultStore, action) => {
     }
 
     case DELETE_MSG: {
-      let { myId, id } = action;
-      return update(store, {
-        messages: { $merge: { id, myId } }
-      })
+      let { myId } = action;
+      let { messages } = store;
+      let filteredKeys = Object.keys(messages).filter((el) => el !== myId);
+      console.log(filteredKeys)
+
+      for (const item in messages) {
+        console.log(item)
+      }
+
+
+
+      return store
+
+
+      // update(store, {
+      //   messages: { $merge: { id, myId } }
+      // })
     }
     default:
       return store;

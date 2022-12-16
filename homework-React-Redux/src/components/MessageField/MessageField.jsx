@@ -78,10 +78,10 @@ class MessageField extends Component {
 
   removePost = (myId) => {
     // let { myId } = this.props;
-    console.log(myId)
-    alert(`Id:${myId}`)
+    // console.log(myId)
+    // alert(`Id:${myId}`)
     // let id = Object.keys(this.props.messages).length + 1;
-    // this.props.deleteMessage(myId, id)
+    this.props.deleteMessage(myId)
   }
 
   // sendMessage = (text, sender) => {
