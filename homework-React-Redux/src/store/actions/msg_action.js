@@ -7,9 +7,9 @@ export let sendMessage = (messageId, sender, text) => ({
   sender,
   text
 });
-export let deleteMessage = (myId) => ({
+export let deleteMessage = (myId, filteredKeys) => ({
   type: DELETE_MSG,
   myId,
-
+  filteredKeys
 
 });

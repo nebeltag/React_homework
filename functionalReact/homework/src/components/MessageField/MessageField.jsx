@@ -4,14 +4,9 @@ import { Button, TextField, createRef, createTheme } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
 // import { useRef, createRef, focus } from 'react';
-import { connect } from 'react-redux/es/exports';
-import { bindActionCreators } from 'redux';
-import { sendMessage, deleteMessage } from '../../store/actions/msg_action.js'
 
 
-
-
-class MessageField extends Component {
+export default class MessageField extends Component {
 
   /// Автофокус не работает по умолчанию с инпутами MUI(требуется кастомизация инпутов)
 
@@ -30,10 +25,10 @@ class MessageField extends Component {
 
   state = {
 
-    // messages: [
-    //   { sender: 'Bot', text: 'Hello!' },
-    //   { sender: 'Bot', text: 'How are you?' }
-    // ],
+    messages: [
+      { sender: 'Bot', text: 'Hello!' },
+      { sender: 'Bot', text: 'How are you?' }
+    ],
     text: '',
     sender: '',
     answered: true
@@ -41,65 +36,49 @@ class MessageField extends Component {
   };
 
   handleChangeText = (event) => {
-    let { profileName } = this.props;
     if (event.keyCode !== 13) {
-      this.setState({
-        text: event.target.value,
-        sender: profileName === '' ? 'Me' : profileName
-      });
-      // console.log(this.state.text);
+      this.setState({ text: event.target.value });
     } else {
       this.handleSend();
     }
   }
 
-  // handleChangeName = (event) => {
-  //   if (event.keyCode !== 13) {
-  //     this.setState({ sender: event.target.value });
-  //   } else {
-  //     this.handleSend();
-  //   }
-  // }
+  handleChangeName = (event) => {
+    if (event.keyCode !== 13) {
+      this.setState({ sender: event.target.value });
+    } else {
+      this.handleSend();
+    }
+  }
 
   handleSend = () => {
-    let { text, sender } = this.state;
-    // let { sender } = this.state;
+    let { text } = this.state;
+    let { sender } = this.state;
     // let s = sender ? sender : 'Bot';
     // let t = text ? text : 'FuckOff';
-    // this.sendMessage(text, sender);
-    let id = Object.keys(this.props.messages).length + 1;
-    this.props.sendMessage(id, sender, text);
-    this.setState({ text: '' })
+    this.sendMessage(text, sender);
+
 
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
     //   console.log(this.state.messages);
     // });
   }
 
-  removePost = (myId) => {
-    // let { myId } = this.props;
-    // console.log(myId)
-    // alert(`Id:${myId}`)
-    // let id = Object.keys(this.props.messages).length + 1;
-    let filteredKeys = Object.keys(this.props.messages).filter(el => el !== myId);
-    this.props.deleteMessage(myId, filteredKeys)
+  sendMessage = (text, sender) => {
+    let { messages } = this.state;
+    this.setState(
+      { messages: [...messages, { text, sender }], text: '' }
+      , () => {
+        console.log(this.state.messages);
+      }
+    )
+
+    if (sender === 'Max') {
+      this.setState({ answered: false });
+    } else {
+      this.setState({ answered: true });
+    }
   }
-
-  // sendMessage = (text, sender) => {
-  //   let { messages } = this.state;
-  //   this.setState(
-  //     { messages: [...messages, { text, sender }], text: '' }
-  //     , () => {
-  //       console.log(this.state.messages);
-  //     }
-  //   )
-
-  //   if (sender === 'Me') {
-  //     this.setState({ answered: false });
-  //   } else {
-  //     this.setState({ answered: true });
-  //   }
-  // }
 
   // componentDidMount() {
 
@@ -119,12 +98,9 @@ class MessageField extends Component {
   }
 
   render() {
-    console.log(this.props);
-    let { messages } = this.props;
-    let { text } = this.state;
-    const MessageElements = Object.keys(messages).map((id) => (
-      <Message key={id} myId={id} text={messages[id].text} sender={messages[id].sender}
-        removePost={this.removePost} />
+    let { messages } = this.state;
+    const MessageElements = messages.map((message, index) => (
+      <Message key={index} text={message.text} sender={message.sender} />
     )
     );
     return (
@@ -163,19 +139,19 @@ class MessageField extends Component {
             variant="filled"
             className='textField'
             style={{ marginBottom: '25px', borderRadius: '5px' }}
-            value={text}
+            value={this.value}
             onChange={this.handleChangeText}
           // ref={this.textInput}
           />
 
-          {/* <TextField id="filled-basic"
+          <TextField id="filled-basic"
             label="Введите имя"
             variant="filled"
             className='textField'
             style={{ marginBottom: '25px', borderRadius: '5px' }}
             value={this.value}
             onChange={this.handleChangeName}
-          /> */}
+          />
 
           <Button type="button"
             variant="contained"
@@ -186,20 +162,13 @@ class MessageField extends Component {
           >
             Send
           </Button>
+
+
+
         </form>
       </div>
     )
   }
 }
-
-const mapStateToProps = ({ message, profile }) => ({
-  messages: message.messages,
-  profileName: profile.profileName,
-
-})
-const mapDispatchToProps = dispatch => bindActionCreators({
-  sendMessage, deleteMessage
-}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
 
 // export default MessageField;

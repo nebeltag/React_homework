@@ -21,14 +21,17 @@ export default (store = defaultStore, action) => {
     }
 
     case DELETE_MSG: {
-      let { myId } = action;
+      let { filteredKeys } = action;
       let { messages } = store;
-      let filteredKeys = Object.keys(messages).filter((el) => el !== myId);
-      console.log(filteredKeys)
+      // let filteredKeys = Object.keys(messages).filter(el => el !== myId);
+      messages = filteredKeys.map(filterKeys => messages[filterKeys]);
+      // console.log(filteredKeys)
+      console.log(messages)
 
-      for (const item in messages) {
-        console.log(item)
-      }
+      // for (const el in messages) {
+      //   console.log(messages[el])
+      // }
+
 
 
 
