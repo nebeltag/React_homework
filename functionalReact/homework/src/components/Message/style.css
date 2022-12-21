@@ -10,6 +10,17 @@
   font-size: 18px;
 }
 
+.senderTitle {
+  font-size: 18px;
+  color: #9cdcfe;
+  margin: 0 10px 10px 0;
+}
+
+.senderBotTitle {
+  font-size: 18px;
+  color: #38ae7c;
+  margin: 0 0 10px 16px;
+}
 
 .text {
   /* color: coral; */

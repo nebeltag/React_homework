@@ -37,27 +37,28 @@ export default class MessageField extends Component {
 
   handleChangeText = (event) => {
     if (event.keyCode !== 13) {
-      this.setState({ text: event.target.value });
+      this.setState({
+        text: event.target.value,
+        sender: 'Me'
+      });
+
     } else {
       this.handleSend();
     }
   }
 
-  handleChangeName = (event) => {
-    if (event.keyCode !== 13) {
-      this.setState({ sender: event.target.value });
-    } else {
-      this.handleSend();
-    }
-  }
+  // handleChangeName = (event) => {
+  //   if (event.keyCode !== 13) {
+  //     this.setState({ sender: event.target.value });
+  //   } else {
+  //     this.handleSend();
+  //   }
+  // }
 
   handleSend = () => {
     let { text } = this.state;
     let { sender } = this.state;
-    // let s = sender ? sender : 'Bot';
-    // let t = text ? text : 'FuckOff';
     this.sendMessage(text, sender);
-
 
     // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
     //   console.log(this.state.messages);
@@ -65,9 +66,11 @@ export default class MessageField extends Component {
   }
 
   sendMessage = (text, sender) => {
+
     let { messages } = this.state;
+
     this.setState(
-      { messages: [...messages, { text, sender }], text: '' }
+      { messages: [...messages, { text, sender }] }
       , () => {
         console.log(this.state.messages);
       }
@@ -79,6 +82,8 @@ export default class MessageField extends Component {
       this.setState({ answered: true });
     }
   }
+
+
 
   // componentDidMount() {
 
@@ -144,14 +149,14 @@ export default class MessageField extends Component {
           // ref={this.textInput}
           />
 
-          <TextField id="filled-basic"
+          {/* <TextField id="filled-basic"
             label="Введите имя"
             variant="filled"
             className='textField'
             style={{ marginBottom: '25px', borderRadius: '5px' }}
             value={this.value}
             onChange={this.handleChangeName}
-          />
+          /> */}
 
           <Button type="button"
             variant="contained"
