@@ -1,38 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MessageField from '../MessageField/MessageField.jsx';
-// import ChatList from '../ChatList/ChatList.jsx';
-// import Header from '../Header/Header.jsx'
+import ChatList from '../ChatList/ChatList.jsx';
+import Header from '../Header/Header.jsx'
+import { useParams, Navigate } from 'react-router-dom';
+import initialChats from '../InitialChats/InitialChats.jsx';
 import './style.css';
 
-// import PropTypes from 'prop-types';
+
+export default function Layout(props) {
 
 
-export default function Layout() {
+  let pageTitle = 'Chat Room';
+  console.log(props)
 
-  // static propTypes = {
-  //   chatId: PropTypes.string
-  // }
+  const { chatId } = useParams();
+  console.log(chatId);
+  const [chats, setChats] = useState(initialChats);
 
-  // static defaultProps = {
-  //   chatId: '1'
-  // }
+  if (!chats[chatId]) {
+    return <Navigate to="/NoChat/" />
+  }
 
-
-
-  // let { chatId } = props;
-  // let message = 'Chat Room';
 
   return (
-    <div className='layout'>
-      {/* <Header message={message}
-          chatId={chatId} /> */}
+    <div className='layout' >
+      <Header pageTitle={pageTitle}
+        chatId={chatId} />
       <div className='main'>
-        <MessageField />
+        <MessageField
+          chatId={chatId}
+          messages={chats[chatId].messages}
+        />
         <div className='chats'>
-          {/* <ChatList /> */}
+          <ChatList
+            chats={chats}
+            chatId={chatId}
+          />
         </div>
       </div>
-    </div>
+    </div >
   )
 
 }

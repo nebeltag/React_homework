@@ -11,7 +11,7 @@ const Message = (props) => {
   // };
 
 
-  // console.log(this.props);
+  console.log(props);
   let { sender, text } = props;
   const message = sender === 'Me'
     ?
@@ -84,3 +84,5 @@ const Message = (props) => {
 }
 
 export default Message;
+
+

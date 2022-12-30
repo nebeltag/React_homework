@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './style.css';
 import Header from '../Header/Header.jsx';
 
-export default class Home extends Component {
+export default function Home(props) {
 
-  render() {
-    let message = 'Homepage';
-    return (
-      <div>
-        <Header message={message} />
-        <div className="App">
-          <img src={logo} className="App-logo" alt="logo" />
 
-        </div>
+  let pageTitle = 'Homepage';
+  return (
+    <div>
+      <Header pageTitle={pageTitle} />
+      <div className="App">
+        <img src={logo} className="App-logo" alt="logo" />
+
       </div>
-    )
-  }
+    </div>
+  )
+
 }

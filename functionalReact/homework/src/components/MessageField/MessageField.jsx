@@ -1,67 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
-import { Button, TextField, createRef, createTheme } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
 // import { useRef, createRef, focus } from 'react';
 
 
 const MessageField = (props) => {
-
-  /// Автофокус не работает по умолчанию с инпутами MUI(требуется кастомизация инпутов)
-
-  // constructor(props) {
-  //   super(props);
-  //   this.textInput = React.createRef();
-  //   this.focusTextInput = this.focusTextInput.bind(this);
-  // }
-
-  // focusTextInput() {
-
-  //   this.textInput.current.focus();
-  // }
-
-  ///////////////////////////////////////////////////////////////////////////////
-
-  // state = {
-
-  //   messages: [
-  //     { sender: 'Bot', text: 'Hello!' },
-  //     { sender: 'Bot', text: 'How are you?' }
-  //   ],
-  //   text: '',
-  //   sender: '',
-  //   answered: true
-
-  // };
+  console.log(props);
 
   const [state, setState] = useState(
     {
       messages: [
-        { sender: 'Bot', text: 'Hello!' },
-        { sender: 'Bot', text: 'How are you?' }
+        //     { id: 1, sender: '', text: '' },
+        //     { id: 2, sender: '', text: '' }
       ],
-
-      text: '',
-      sender: '',
     }
   )
 
-  const [newText, setNewText] = useState('');
-  const [newSender, setNewSender] = useState('');
+  useEffect(() => {
+    setState({ messages: [...props.messages] })
+  }, [props.messages]);
+
+  const [post, setPost] = useState({ text: '', sender: 'Me' })
+  const [bot, setBot] = useState({ text: '', sender: '' })
   const [answer, setAnswer] = useState(true);
+
+
 
   function handleChangeText(event) {
     if (event.keyCode !== 13) {
-      setNewText(event.target.value);
-      setNewSender('Me')
-    } else {
-      this.handleSend();
+      setPost({ ...post, text: event.target.value, sender: 'Me' })
+
     }
+    // else {
+    //   handleSend();
+    // }
   }
 
   useEffect(() => {
-    console.log(newText);
+    console.log(post.text);
   });
 
 
@@ -73,29 +51,32 @@ const MessageField = (props) => {
   //   }
   // }
 
-  function handleSend() {
-    state.text = newText;
-    state.sender = newSender;
-    let { text } = state;
-    let { sender } = state;
-    sendMessage(text, sender);
+  // function handleSend() {
+  // let p = post
+  // let b = bot
+  // state.text = newText;
+  // state.sender = newSender;
+  // let { text } = state;
+  // let { sender } = state;
+  // let { text, sender } = post;
+  // sendMessage();
 
-    // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
-    //   console.log(this.state.messages);
-    // });
-  }
+  // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
+  //   console.log(this.state.messages);
+  // });
+  // }
 
-  function sendMessage(text, sender) {
+  function sendMessage() {
 
-    let { messages } = state;
+    // let { messages } = state;
 
     setState(
-      { messages: [...messages, { text, sender }] }
+      { messages: [...props.messages, { ...post, id: Date.now() }] }
     )
-    setNewText('');
+    setPost({ text: '', sender: 'Me' });
+    setBot({ text: 'Leave me', sender: `${props.chatId}` })
 
-
-    if (state.sender === 'Me') {
+    if (post.sender === 'Me') {
       setAnswer(false);
     } else {
       setAnswer(true);;
@@ -106,22 +87,34 @@ const MessageField = (props) => {
   useEffect(() => {
     if (!answer) {
       setTimeout(() => {
-        sendMessage('Leave me', 'Bot');
+        setState(
+          { messages: [...messages, { ...bot, id: Date.now() }] }
+        );
+
+        // setPost({ ...post, text: 'Leave me', sender: 'Leave me' })
+        // sendMessage(b);
       }, 1000)
     }
-  })
-
-  // this.focusTextInput();
-  // if (!this.state.answered) this.sendMessage('FuckOff', 'Bot');
-  // }
+  }, [bot])
 
 
-  let { messages } = state;
+  const focusMe = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      focusMe.current.focus();
+    }, 2000)
+  },);
+
+
   console.log(state)
+  let { messages } = state;
   const MessageElements = messages.map((message, index) => (
-    <Message key={index} text={message.text} sender={message.sender} />
-  )
-  );
+    <Message key={index} id={index + 1} text={message.text} sender={message.sender} />
+  ));
+
+
+
   return (
     <div className="messageBox">
 
@@ -134,12 +127,12 @@ const MessageField = (props) => {
       <form className='formStyle'>
 
         {/* <input className="inputStyle"
-            type="text"
-            placeholder="Введите сообщение"
-            value={this.value}
-            onChange={this.handleChangeText}
-            ref={this.textInput}
-          /> */}
+          type="text"
+          placeholder="Введите сообщение"
+                    value={this.value}
+          onChange={this.handleChangeText}
+          ref={inputRef}
+        /> */}
 
         {/* <input className="inputStyle"
             type="text"
@@ -154,14 +147,13 @@ const MessageField = (props) => {
             Отправить</button> */}
 
         <TextField id="filled-basic"
-          autoFocus
           label="Введите сообщение"
           variant="filled"
           className='textField'
           style={{ marginBottom: '25px', borderRadius: '5px' }}
-          value={newText}
+          value={post.text}
           onChange={handleChangeText}
-        // ref={this.textInput}
+          inputRef={focusMe}
         />
 
         {/* <TextField id="filled-basic"
@@ -177,7 +169,7 @@ const MessageField = (props) => {
           variant="contained"
           endIcon={<SendIcon />}
           className='sendButton'
-          onClick={handleSend}
+          onClick={sendMessage}
           style={{ margin: '0 0 25px 0', width: '219px', fontSize: '18px' }}
         >
           Send
