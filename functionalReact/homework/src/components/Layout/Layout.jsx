@@ -15,7 +15,7 @@ export default function Layout(props) {
 
   const { chatId } = useParams();
   console.log(chatId);
-  const [chats, setChats] = useState(initialChats);
+  const [chats] = useState(initialChats);
 
   if (!chats[chatId]) {
     return <Navigate to="/NoChat/" />

@@ -1,6 +1,6 @@
 import React from "react";
 import './style.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Typography, Chip, Avatar, Stack } from "@mui/material";
 
 
