@@ -8,16 +8,18 @@ import Message from '../Message/Message.jsx';
 
 const MessageField = (props) => {
   console.log(props);
+  const { chatId } = props
 
   const [state, setState] = useState(
     {
-      messages: [
+      messages: [...props.messages
         //     { id: 1, sender: '', text: '' },
         //     { id: 2, sender: '', text: '' }
       ],
     }
   )
-
+  console.log(state.messages)
+  console.log(state)
   useEffect(() => {
     setState({ messages: [...props.messages] })
   }, [props.messages]);
@@ -71,7 +73,7 @@ const MessageField = (props) => {
     // let { messages } = state;
 
     setState(
-      { messages: [...props.messages, { ...post, id: Date.now() }] }
+      { messages: [...messages, { ...post, id: Date.now() }] }
     )
     setPost({ text: '', sender: 'Me' });
     setBot({ text: 'Leave me', sender: `${props.chatId}` })
@@ -109,6 +111,7 @@ const MessageField = (props) => {
 
   console.log(state)
   let { messages } = state;
+  console.log(messages)
   const MessageElements = messages.map((message, index) => (
     <Message key={index} id={index + 1} text={message.text} sender={message.sender} />
   ));

@@ -3,34 +3,50 @@ import './style.css';
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessage } from '../../store/Messages/messagesActions.js';
 // import { useRef, createRef, focus } from 'react';
 
 
 const MessageField = (props) => {
+  const chats = useSelector((state) => state.chats.chatList);
+  const messages = useSelector(state => state.messages.messageList);
+
+  console.log(messages)
+  const dispatch = useDispatch();
+  const onAddMessage = (message) => {
+    dispatch(addMessage(chatId, message));
+  }
+
   console.log(props);
-
+  const { chatId } = props;
   const [state, setState] = useState(
-    {
-      messages: [
-        //     { id: 1, sender: '', text: '' },
-        //     { id: 2, sender: '', text: '' }
-      ],
-    }
+    // {
+    // messages: [...props.messages
+    //     { id: 1, sender: '', text: '' },
+    //     { id: 2, sender: '', text: '' }
+    //   ],
+    // }
   )
+  // console.log(state);
 
-  useEffect(() => {
-    setState({ messages: [...props.messages] })
-  }, [props.messages]);
+  // useEffect(() => {
+  //   setState({ messages: [...props.messages] })
+  // }, [chatId]);
 
-  const [post, setPost] = useState({ text: '', sender: 'Me' })
+  const [message, setMessage] = useState({ id: '', text: '', sender: 'Me' })
   const [bot, setBot] = useState({ text: '', sender: '' })
   const [answer, setAnswer] = useState(true);
 
+  const profileName = useSelector(state => state.profile.profileName);
 
 
   function handleChangeText(event) {
     if (event.keyCode !== 13) {
-      setPost({ ...post, text: event.target.value, sender: 'Me' })
+      setMessage({
+        text: event.target.value,
+        sender: profileName === '' ? 'Me' : profileName
+      })
 
     }
     // else {
@@ -39,50 +55,25 @@ const MessageField = (props) => {
   }
 
   useEffect(() => {
-    console.log(post.text);
+    console.log(message.text);
   });
 
+  // function sendMessage() {
 
-  // handleChangeName = (event) => {
-  //   if (event.keyCode !== 13) {
-  //     this.setState({ sender: event.target.value });
+  //   // let { messages } = state;
+
+  //   setState(
+  //     { messages: [...messages, { ...post, id: Date.now() }] }
+  //   )
+  //   setPost({ text: '', sender: 'Me' });
+  //   setBot({ text: 'Leave me', sender: `${props.chatId}` })
+
+  //   if (post.sender !== 'Bot') {
+  //     setAnswer(false);
   //   } else {
-  //     this.handleSend();
+  //     setAnswer(true);;
   //   }
   // }
-
-  // function handleSend() {
-  // let p = post
-  // let b = bot
-  // state.text = newText;
-  // state.sender = newSender;
-  // let { text } = state;
-  // let { sender } = state;
-  // let { text, sender } = post;
-  // sendMessage();
-
-  // this.setState({ messages: [...this.state.messages, 'Good'] }, () => {
-  //   console.log(this.state.messages);
-  // });
-  // }
-
-  function sendMessage() {
-
-    // let { messages } = state;
-
-    setState(
-      { messages: [...props.messages, { ...post, id: Date.now() }] }
-    )
-    setPost({ text: '', sender: 'Me' });
-    setBot({ text: 'Leave me', sender: `${props.chatId}` })
-
-    if (post.sender === 'Me') {
-      setAnswer(false);
-    } else {
-      setAnswer(true);;
-    }
-  }
-
 
   useEffect(() => {
     if (!answer) {
@@ -90,9 +81,6 @@ const MessageField = (props) => {
         setState(
           { messages: [...messages, { ...bot, id: Date.now() }] }
         );
-
-        // setPost({ ...post, text: 'Leave me', sender: 'Leave me' })
-        // sendMessage(b);
       }, 1000)
     }
   }, [bot])
@@ -107,69 +95,44 @@ const MessageField = (props) => {
   },);
 
 
-  console.log(state)
-  let { messages } = state;
-  const MessageElements = messages.map((message, index) => (
-    <Message key={index} id={index + 1} text={message.text} sender={message.sender} />
-  ));
+  // console.log(state)
+  // let { messages } = state;
+  // const MessageElements = Object.keys(messages).messages.map((message, index) => (
+  //   <Message key={index} name={profileName} Id={chatId} id={index + 1} text={message.text} sender={message.sender} />
+  // ));
 
-
+  const MessageElements = Object.keys(messages).map((id, index) => (
+    <Message key={index} myId={id} text={message.text} sender={message.sender} />
+  )
+  );
+  // console.log(MessageElements)
+  // let chatMessages = MessageElements.filter(item => item.props.Id === props.chatId);
+  // console.log(chatMessages)
 
   return (
     <div className="messageBox">
 
-      {/* <p>{this.state.text}</p>
-        <p>{this.state.name}</p> */}
       <div className='messageElements'>
         {MessageElements}
       </div>
 
       <form className='formStyle'>
 
-        {/* <input className="inputStyle"
-          type="text"
-          placeholder="Введите сообщение"
-                    value={this.value}
-          onChange={this.handleChangeText}
-          ref={inputRef}
-        /> */}
-
-        {/* <input className="inputStyle"
-            type="text"
-            placeholder="Введите имя"
-            value={this.value}
-            onChange={this.handleChangeName} ref={this.textInput} /> */}
-
-        {/* <button className="buttonStyle"
-            type="button"
-            onClick={this.handleSend(this.state.text, 'Me')}>
-            onClick={this.handleSend}>
-            Отправить</button> */}
-
         <TextField id="filled-basic"
           label="Введите сообщение"
           variant="filled"
           className='textField'
           style={{ marginBottom: '25px', borderRadius: '5px' }}
-          value={post.text}
+          value={message.text}
           onChange={handleChangeText}
           inputRef={focusMe}
         />
-
-        {/* <TextField id="filled-basic"
-            label="Введите имя"
-            variant="filled"
-            className='textField'
-            style={{ marginBottom: '25px', borderRadius: '5px' }}
-            value={this.value}
-            onChange={this.handleChangeName}
-          /> */}
 
         <Button type="button"
           variant="contained"
           endIcon={<SendIcon />}
           className='sendButton'
-          onClick={sendMessage}
+          onClick={onAddMessage}
           style={{ margin: '0 0 25px 0', width: '219px', fontSize: '18px' }}
         >
           Send

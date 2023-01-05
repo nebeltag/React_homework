@@ -12,8 +12,8 @@ const Message = (props) => {
 
 
   console.log(props);
-  let { sender, text } = props;
-  const message = sender === 'Me'
+  let { sender, text, name } = props;
+  const message = sender === (name || 'Me')
     ?
     <Stack direction="row" spacing={1}
       style={{

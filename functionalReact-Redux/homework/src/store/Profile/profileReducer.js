@@ -1,19 +1,21 @@
-import { EXAMPLE_ACTION } from '../actions/profileAction.js';
+import { CHANGE_NAME } from './profileNameAction.js';
 
 
 const defaultState = {
-  showName: false,
-  name: 'Default'
+  profileName: ''
+
 
 }
 
 const profileReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case EXAMPLE_ACTION:
+
+    case CHANGE_NAME:
       return {
         ...state,
-        showName: action.payload
+        profileName: action.payload
       }
+
 
     default:
       return state;
