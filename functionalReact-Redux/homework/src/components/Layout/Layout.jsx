@@ -3,7 +3,8 @@ import MessageField from '../MessageField/MessageField.jsx';
 import ChatList from '../ChatList/ChatList.jsx';
 import Header from '../Header/Header.jsx'
 import { useParams, Navigate } from 'react-router-dom';
-import initialChats from '../InitialChats/InitialChats.jsx';
+import { useSelector } from 'react-redux';
+// import initialChats from '../InitialChats/InitialChats.jsx';
 import './style.css';
 
 
@@ -15,9 +16,13 @@ export default function Layout(props) {
 
   const { chatId } = useParams();
   console.log(chatId);
-  const [chats] = useState(initialChats);
+  const chatList = useSelector((state) => state.chats.chatList);
+  const [chats] = useState(chatList);
 
-  if (!chats[chatId]) {
+
+  let contains = chats.find((i) => i.id === chatId);
+
+  if (!contains) {
     return <Navigate to="/NoChat/" />
   }
 
@@ -25,16 +30,20 @@ export default function Layout(props) {
   return (
     <div className='layout' >
       <Header pageTitle={pageTitle}
-        chatId={chatId} />
+        chatId={chatId}
+        name={contains.name}
+      />
       <div className='main'>
         <MessageField
           chatId={chatId}
-          messages={chats[chatId].messages}
+          name={contains.name}
+        // messages={chats[chatId].messages}
         />
         <div className='chats'>
           <ChatList
             chats={chats}
             chatId={chatId}
+            name={contains.name}
           />
         </div>
       </div>

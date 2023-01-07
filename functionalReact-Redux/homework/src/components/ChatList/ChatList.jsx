@@ -1,37 +1,52 @@
-import React from 'react';
-import { List, ListItem } from "@mui/material";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { List, ListItem, Dialog, TextField, DialogTitle, Button } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import { addChat, removeChat } from '../../store/Chats/chatsActions.js';
+
+
 import './style.css';
 
 
-export default function ChatList({ chats, chatId }) {
+export default function ChatList({ chatId }) {
 
-  // const { chatId } = useParams();
-  console.log(chats);
 
-  // function removeChat(e) {
-  // e.preventDefault();
-  // console.log(chatId);
-  //   return chatsObj.filter(item => item.key === 2);
-  // }
+  const [visible, setVisible] = useState(false);
+  const [newChatName, setNewChatName] = useState("");
+  const chats = useSelector((state) => state.chats.chatList);
+  const dispatch = useDispatch();
+  const handleClose = () => setVisible(false);
+  const handleOpen = () => setVisible(true);
+  const handleChange = (e) => setNewChatName(e.target.value);
+  const onAddChat = () => {
+    dispatch(addChat(newChatName));
+    setNewChatName("");
+    handleClose();
+  };
+  const onRemoveChat = () => {
+    dispatch(removeChat(chatId));
+  };
 
-  let chatsItems = Object.keys(chats).map((id, i) => (
-    <div key={i} id={id}>
-      <Link to={`/chats/${id}`}
+  console.log(chats, chatId);
+
+
+  let chatsItems = chats.map((el, i) => (
+    <div key={i} id={i + 1}>
+      <Link to={`/chats/${el.id}`}
         style={{
           display: 'flex',
           textDecoration: 'none',
-          color: id === chatId ? '#4ebc7c' : "grey",
+          color: el.id === chatId ? '#4ebc7c' : "grey",
           fontWeight: 700
         }}>
         <ListItem
           button={true}
         // onClick={(e) => { console.log(id, chatId) }}
         >
-          {chats[id].name}
+          {el.name}
           <SendIcon style={{ margin: '7px 0 0 10px' }} />
         </ListItem>
         <div style={{
@@ -39,11 +54,9 @@ export default function ChatList({ chats, chatId }) {
           alignItems: 'center'
         }}>
           <IconButton type="button" aria-label="delete" size="small"
-          // onClick={(e) => { chatsObj.map((item) => console.log(item.props.id !== id)) }}
-          // onClick={(e) => { chatsObj.filter((item) => item.key === '3') }}
-          // onClick={(e) => { console.log(id, chatId) }}
+            onClick={onRemoveChat}
           >
-            <DeleteIcon fontSize="small" style={{ color: id === chatId ? '#4ebc7c' : "grey" }} />
+            <DeleteIcon fontSize="small" style={{ color: el.id === chatId ? '#4ebc7c' : "grey" }} />
           </IconButton>
         </div>
       </Link>
@@ -52,20 +65,12 @@ export default function ChatList({ chats, chatId }) {
 
 
 
-  // function removeChat() {
-  // e.preventDefault();
-  // console.log(chatId);
-  //   return chatsArray.filter(item => item[chatId] !== chatId);
-  // }
-
-  console.log(chatsItems)
-
   return (
+    <div className='chatsWrp'>
+      <List>
+        {chatsItems}
 
-    <List>
-      {chatsItems}
-
-      {/* Object.keys(chats).map((id, i) => (
+        {/* Object.keys(chats).map((id, i) => (
           <div key={i}>
             <Link to={`/chats/${id}`}
               style={{
@@ -82,8 +87,28 @@ export default function ChatList({ chats, chatId }) {
           </div>
         )) */}
 
-    </List>
+      </List>
 
+      <div>
+        <Button
+          style={{
+            height: '100%', width: '100%', fontSize: '24px', fontWeight: '900',
+            color: '#46ae70'
+          }}
+          onClick={handleOpen}>
+          Add Chat
+        </Button>
+
+        <Dialog open={visible} onClose={handleClose}>
+          <DialogTitle>Please enter a name for new chat</DialogTitle>
+          <TextField value={newChatName} onChange={handleChange} />
+          <Button onClick={onAddChat} disabled={!newChatName}>
+            Submit
+          </Button>
+        </Dialog>
+
+      </div>
+    </div>
     // < List >
     //   <Link to={`/chats/${id}`}
     //     style={{ textDecoration: 'none', color: id === chatId ?'#4ebc7c': "grey" }}>

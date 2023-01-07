@@ -9,7 +9,7 @@ export default function Header(props) {
   return (
     <div className='header-wrp'>
       <div className="header">
-        <h1>{props.pageTitle} {props.chatId}{props.selectChat}</h1>
+        <h1>{props.pageTitle} {props.name}{props.selectChat}</h1>
       </div>
 
 

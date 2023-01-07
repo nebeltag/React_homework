@@ -127,6 +127,9 @@ class MessageField extends Component {
         removePost={this.removePost} />
     )
     );
+
+    console.log(MessageElements);
+
     return (
       <div className="messageBox">
         {/* <p>{this.state.text}</p>

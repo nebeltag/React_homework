@@ -6,14 +6,17 @@ import Home from './components/Home/Home.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import PageNotFound from './components/404/404.jsx';
 import NoChat from './components/NoChat/NoChat.jsx';
-import initialChats from './components/InitialChats/InitialChats.jsx';
+// import initialChats from './components/InitialChats/InitialChats.jsx';
+import { useSelector } from 'react-redux';
 
 
 
-export default function Router(props) {
 
-  const [chats, setChats] = useState(initialChats);
+export default function Router() {
 
+  // const [chats, setChats] = useState(initialChats);
+  // const chatList = useSelector((state) => state.chats.chatList);
+  const [chats, setChats] = useState(useSelector((state) => state.chats.chatList));
   return (
     <Routes>
       <Route path='/' element={<Home />} exact />
