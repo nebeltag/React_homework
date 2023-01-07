@@ -2,17 +2,20 @@ import React from "react";
 import './style.css';
 import PropTypes from 'prop-types';
 import { Typography, Chip, Avatar, Stack } from "@mui/material";
+import { connect } from 'react-redux/es/exports';
 
 
-export default class Message extends React.Component {
+class Message extends React.Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
   };
 
   render() {
-    let { sender, text } = this.props;
-    const message = sender !== 'Bot' ?
+    console.log(this.props)
+    let { myId, sender, text, removePost } = this.props;
+
+    const message = sender === 'Me' ?
 
       <Stack direction="row" spacing={1}
         style={{
@@ -29,7 +32,8 @@ export default class Message extends React.Component {
 
           color="primary"
           className='sender'
-        />
+        ></Chip>
+        <button onClick={() => removePost(myId)} >x</button>
         {/* <span className="sender">{this.props.sender}</span>
         <span className="text">{this.props.text}</span> */}
       </Stack> :
@@ -50,6 +54,7 @@ export default class Message extends React.Component {
           color="success"
           className='text'
         />
+        <button onClick={() => removePost(myId)} >x</button>
       </Stack>
     {/* <Typography style={{
             marginBottom: '15px', display: 'flex', flexDirection: 'column',
@@ -64,6 +69,7 @@ export default class Message extends React.Component {
     return (
       <div>
         {message}
+
       </div>
 
       // <Typography style={{ marginBottom: '15px', display: 'flex', flexDirection: 'column' }}>
@@ -79,5 +85,8 @@ export default class Message extends React.Component {
     )
   }
 }
-
+const mapStateToProps = ({ profile }) => ({
+  profileName: profile.profileName,
+})
+export default connect(mapStateToProps)(Message);
 // export default Message;
