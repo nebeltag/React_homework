@@ -1,0 +1,31 @@
+.apiMain {
+  display: flex;
+  justify-content: space-between;
+}
+
+.apiList {
+  list-style-type: none;
+  margin: 20px;
+}
+
+.apiList li {
+  color: #61dafb;
+}
+
+.errorBox {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorBox h3 {
+  max-width: 200px;
+  min-height: 50px;
+  font-size: 34px;
+  font-weight: 700;
+  padding: 5px;
+  margin-bottom: 10px;
+  color: rgb(240, 101, 60);
+}

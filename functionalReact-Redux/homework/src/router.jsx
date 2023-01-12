@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout.jsx';
 import Home from './components/Home/Home.jsx';
 import Profile from './components/Profile/Profile.jsx';
+import { API } from './components/API/API.jsx'
 import PageNotFound from './components/404/404.jsx';
 import NoChat from './components/NoChat/NoChat.jsx';
 // import initialChats from './components/InitialChats/InitialChats.jsx';
@@ -29,6 +30,7 @@ export default function Router() {
       <Route path='/chats/:chatId/' element={< Layout chatId={'Belatrix'} />} exact />
       <Route path='/chats/:chatId/' element={< Layout chatId={'Snag'} />} exact /> */}
       <Route path='/profile/' element={<Profile />} exact />
+      <Route path='/api/' element={<API />} exact />
       <Route path='/page_not_found/' element={<PageNotFound />} exact />
       <Route path='*' element={<Navigate to="/page_not_found/" />} />
       <Route path='/NoChat/' element={<NoChat chats={chats} />} exact />
