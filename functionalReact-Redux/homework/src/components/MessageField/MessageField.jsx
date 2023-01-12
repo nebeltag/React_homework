@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './style.css';
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from '../../store/Messages/messagesActions.js';
+// import { addMessage } from '../../store/Messages/messagesActions.js';
 // import { useRef, createRef, focus } from 'react';
+import { addMessageWithThunk } from '../../middlewares/botMD.js'
 
 
 const MessageField = (props) => {
@@ -61,15 +62,20 @@ const MessageField = (props) => {
 
 
   const onAddMessage = () => {
-    // setState({ ...state, message })
-    dispatch(addMessage(chatId, message));
+    dispatch(addMessageWithThunk(chatId, message));
     setMessage({ text: '', sender: 'Me' });
-    console.log(message)
-  }
+  };
 
-  useEffect(() => {
-    console.log(message);
-  });
+  // const onAddMessage = () => {
+  //   // setState({ ...state, message })
+  //   dispatch(addMessage(chatId, message));
+  //   setMessage({ text: '', sender: 'Me' });
+  //   console.log(message)
+  // }
+
+  // useEffect(() => {
+  //   console.log(message);
+  // });
 
   // function sendMessage() {
 
@@ -105,7 +111,7 @@ const MessageField = (props) => {
     setTimeout(() => {
       focusMe.current.focus();
     }, 2000)
-  },);
+  });
 
 
   // console.log(state)
@@ -139,7 +145,7 @@ const MessageField = (props) => {
   return (
     <div className="messageBox">
 
-      <div className='messageElements'>
+      <div className='messageElements scrollBar'>
         {MessageElements}
       </div>
 

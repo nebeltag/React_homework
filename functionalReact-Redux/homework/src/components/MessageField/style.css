@@ -74,8 +74,60 @@
 }
 
 .messageElements {
+  height: 75%;
   box-sizing: border-box;
-  padding: 0 10px;
-  width: 60%;
-  /* overflow-y: scroll; */
+  padding: 0 100px;
+  width: 100%;
+}
+
+.scrollBar {
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 24px;
+  /* ширина для вертикального скролла */
+  background-color: #808080;
+  border-radius: 9em;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #444b58;
+  border-radius: 9em;
+  box-shadow: inset 1px 1px 10px #f3faf7;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2e3950;
+}
+
+/* Стрелки */
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+  background: linear-gradient(120deg, #808080 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(240deg, #808080 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(0deg, #808080 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #444b58;
+  border-radius: 9em;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:hover {
+  background-color: #556588;
+}
+
+
+::-webkit-scrollbar-button:vertical:end:increment {
+  background:
+    linear-gradient(300deg, #808080 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(60deg, #808080 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(180deg, #808080 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: #444b58;
+  border-radius: 9em;
+}
+
+
+::-webkit-scrollbar-button:vertical:end:increment:hover {
+  background-color: #556588;
 }
