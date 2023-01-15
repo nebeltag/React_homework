@@ -1,6 +1,7 @@
 .apiMain {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin: 80px;
 }
 
 .apiList {
@@ -28,4 +29,10 @@
   padding: 5px;
   margin-bottom: 10px;
   color: rgb(240, 101, 60);
+}
+
+.spinner {
+  position: relative;
+  top: 40vh;
+  left: 140vh;
 }
