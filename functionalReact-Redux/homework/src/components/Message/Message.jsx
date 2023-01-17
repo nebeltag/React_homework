@@ -1,6 +1,6 @@
 import React from "react";
 import './style.css';
-import { Typography, Chip, Avatar, Stack } from "@mui/material";
+import { Chip, Avatar, Stack } from "@mui/material";
 
 
 const Message = (props) => {
