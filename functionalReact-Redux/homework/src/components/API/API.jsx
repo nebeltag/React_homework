@@ -51,7 +51,7 @@ export const API = () => {
     requestGists();
   }, []);
   const renderGist = (gist) => <li key={gist.id}>{gist.description}</li>;
-  // console.log(renderGist);
+
 
   if (loading) {
     return <CircularProgress className='spinner' />;
@@ -93,15 +93,9 @@ export const API = () => {
 
 
         <div >
-          {/* if (error) {
-          return (
-            <>
-              <h3>Error</h3>
-              <button onClick={requestGists}>Retry</button>
-            </>
-          );
-        } */}
+
           <ul className='apiList'>{gists.map(renderGist)}</ul>
+
         </div>
       </div>
     </div>

@@ -1,15 +1,9 @@
 import React from "react";
 import './style.css';
-// import PropTypes from 'prop-types';
 import { Typography, Chip, Avatar, Stack } from "@mui/material";
 
 
 const Message = (props) => {
-
-  // static propTypes = {
-  //   text: PropTypes.string.isRequired,
-  // };
-
 
   console.log(props);
   let { sender, text, name } = props;
@@ -32,8 +26,7 @@ const Message = (props) => {
         className='sender'
       ></Chip>
 
-      {/* <span className="sender">{this.props.sender}</span>
-        <span className="text">{this.props.text}</span> */}
+
     </Stack>
     :
     <Stack direction="row" spacing={1}
@@ -69,16 +62,6 @@ const Message = (props) => {
       {message}
 
     </div>
-
-    // <Typography style={{ marginBottom: '15px', display: 'flex', flexDirection: 'column' }}>
-
-    //   <span className="sender">{this.props.sender}</span>
-    //   <span className="text">{this.props.text}</span>
-
-    // </Typography>
-
-
-
 
   )
 }
