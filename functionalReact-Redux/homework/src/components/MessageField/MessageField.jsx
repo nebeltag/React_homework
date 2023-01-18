@@ -5,7 +5,6 @@ import SendIcon from '@mui/icons-material/Send';
 import Message from '../Message/Message.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 // import { addMessage } from '../../store/Messages/messagesActions.js';
-// import { useRef, createRef, focus } from 'react';
 import { addMessageWithThunk } from '../../middlewares/botMD.js'
 
 
@@ -113,6 +112,13 @@ const MessageField = (props) => {
     }, 2000)
   });
 
+  const scrollDown = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      scrollDown.current?.lastElementChild?.scrollIntoView({ behavior: 'smooth' });
+    }, 1000)
+  }, [chatId, message])
 
   // console.log(state)
   // let { messages } = state;
@@ -145,9 +151,11 @@ const MessageField = (props) => {
   return (
     <div className="messageBox">
 
-      <div className='messageElements scrollBar'>
+
+      <div className='messageElements scrollBar' ref={scrollDown}>
         {MessageElements}
       </div>
+
 
       <form className='formStyle'>
 
@@ -171,7 +179,7 @@ const MessageField = (props) => {
           Send
         </Button>
       </form>
-    </div>
+    </div >
   )
 
 }

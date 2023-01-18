@@ -5,7 +5,7 @@ import { Chip, Avatar, Stack } from "@mui/material";
 
 const Message = (props) => {
 
-  console.log(props);
+  // console.log(props);
   let { sender, text, name } = props;
   const message = sender === (name || 'Me')
     ?
