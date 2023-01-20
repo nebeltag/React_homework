@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./messagesActions.js";
+import { ADD_MESSAGE, ADD_NEW_MESSAGE_LIST } from "./messagesActions.js";
 
 const initialState = {
   messageList: {
@@ -42,6 +42,18 @@ const messagesReducer = (state = initialState, action) => {
           ],
         },
       };
+    }
+
+    case ADD_NEW_MESSAGE_LIST: {
+      return {
+        ...state,
+        messageList: {
+          ...state.messageList,
+          [action.newChatId]: [
+            { text: `Hi! I am ${action.newChatName}`, sender: action.newChatName }
+          ]
+        }
+      }
     }
     default:
       return state;

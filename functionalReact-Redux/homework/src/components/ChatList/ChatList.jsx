@@ -6,13 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import { addChat } from '../../store/Chats/chatsActions.js';
+import { addNewMessageList } from '../../store/Messages/messagesActions.js';
 
 
 import './style.css';
 
 
 export default function ChatList({ chatId }) {
-
+  console.log(chatId);
 
   const [visible, setVisible] = useState(false);
   const [newChatName, setNewChatName] = useState("");
@@ -23,9 +24,15 @@ export default function ChatList({ chatId }) {
   const handleChange = (e) => setNewChatName(e.target.value);
   const onAddChat = () => {
     dispatch(addChat(newChatName));
+    dispatch(addNewMessageList(`id${chats.length}`, newChatName));
     setNewChatName("");
     handleClose();
+
   };
+
+  // const onAddNewMessageList = () => {
+  //   dispatch(addNewMessageList(chatId));
+  // }
   // const onRemoveChat = () => {
   //   dispatch(removeChat(chatId));
   // };
@@ -44,6 +51,7 @@ export default function ChatList({ chatId }) {
         }}>
         <ListItem
           button={true}
+        // onClick={onAddNewMessageList}
         >
           {el.name}
           <SendIcon style={{ margin: '7px 0 0 10px' }} />
@@ -106,56 +114,56 @@ export default function ChatList({ chatId }) {
 
       </div>
     </div>
-    // < List >
-    //   <Link to={`/chats/${id}`}
-    //     style={{ textDecoration: 'none', color: id === chatId ?'#4ebc7c': "grey" }}>
-    //     <ListItem
-    //       button={true}>
-    //       {chats[id].name}
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    //   <Link to='/chats/Hermiona/'
-    //     style={{ textDecoration: 'none', color: '#4ebc7c' }}>
-    //     <ListItem
-    //       button={true}>
-    //       Hermiona
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    //   <Link to='/chats/Ron/'
-    //     style={{ textDecoration: 'none', color: '#4ebc7c' }}>
-    //     <ListItem
-    //       button={true}>
-    //       Ron
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    //   <Link to='/chats/Voldemort/'
-    //     style={{ textDecoration: 'none', color: '#4ebc7c' }}>
-    //     <ListItem
-    //       button={true}>
-    //       Voldemort
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    //   <Link to='/chats/LeStrange/'
-    //     style={{ textDecoration: 'none', color: '#4ebc7c' }}>
-    //     <ListItem
-    //       button={true}>
-    //       LeStrange
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    //   <Link to='/chats/Snag/'
-    //     style={{ textDecoration: 'none', color: '#4ebc7c' }}>
-    //     <ListItem
-    //       button={true}>
-    //       Snag
-    //       <SendIcon style={{ margin: '7px 0 0 10px' }} />
-    //     </ListItem>
-    //   </Link>
-    // </List >
+    /*< List >
+      <Link to={`/chats/${id}`}
+        style={{ textDecoration: 'none', color: id === chatId ?'#4ebc7c': "grey" }}>
+        <ListItem
+          button={true}>
+          {chats[id].name}
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+      <Link to='/chats/Hermiona/'
+        style={{ textDecoration: 'none', color: '#4ebc7c' }}>
+        <ListItem
+          button={true}>
+          Hermiona
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+      <Link to='/chats/Ron/'
+        style={{ textDecoration: 'none', color: '#4ebc7c' }}>
+        <ListItem
+          button={true}>
+          Ron
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+      <Link to='/chats/Voldemort/'
+        style={{ textDecoration: 'none', color: '#4ebc7c' }}>
+        <ListItem
+          button={true}>
+          Voldemort
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+      <Link to='/chats/LeStrange/'
+        style={{ textDecoration: 'none', color: '#4ebc7c' }}>
+        <ListItem
+          button={true}>
+          LeStrange
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+      <Link to='/chats/Snag/'
+        style={{ textDecoration: 'none', color: '#4ebc7c' }}>
+        <ListItem
+          button={true}>
+          Snag
+          <SendIcon style={{ margin: '7px 0 0 10px' }} />
+        </ListItem>
+      </Link>
+    </List >*/
   )
 
 }
