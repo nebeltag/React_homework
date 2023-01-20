@@ -1,13 +1,12 @@
 export const GET_GISTS_REQUEST = "GISTS::GET_GISTS_REQUEST";
 export const GET_GISTS_SUCCESS = "GISTS::GET_GISTS_SUCCESS";
 export const GET_GISTS_FAILURE = "GISTS::GET_GISTS_FAILURE";
+export const GET_TOGGLE_SWITCH = "GISTS::GET_TOGGLE_SWITCH";
 
 
 
-export const getGistsRequest = (load) => ({
+export const getGistsRequest = () => ({
   type: GET_GISTS_REQUEST,
-  payload: load,
-
 });
 
 export const getGistsSuccess = (data) => ({
@@ -18,6 +17,11 @@ export const getGistsSuccess = (data) => ({
 export const getGistsFailure = (err) => ({
   type: GET_GISTS_FAILURE,
   payload: err,
+});
+
+export const getToggleSwitch = (toggle) => ({
+  type: GET_TOGGLE_SWITCH,
+  payload: toggle,
 });
 
 

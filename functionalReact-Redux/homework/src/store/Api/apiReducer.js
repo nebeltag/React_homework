@@ -1,5 +1,5 @@
 import { STATUSES } from '../Statuses/statuses.js';
-import { GET_GISTS_REQUEST, GET_GISTS_SUCCESS, GET_GISTS_FAILURE }
+import { GET_GISTS_REQUEST, GET_GISTS_SUCCESS, GET_GISTS_FAILURE, GET_TOGGLE_SWITCH }
   from './apiAction.js'
 
 const initialState = {
@@ -15,13 +15,12 @@ const gistsReducer = (state = initialState, action) => {
       return {
         ...state,
         request: STATUSES.REQUEST,
-        loading: action.payload,
       };
 
     case GET_GISTS_SUCCESS:
       return {
         ...state,
-        articles: action.payload,
+        gists: action.payload,
         request: STATUSES.SUCCESS,
 
       };
@@ -31,6 +30,13 @@ const gistsReducer = (state = initialState, action) => {
         ...state,
         request: STATUSES.FAILURE,
         error: action.payload,
+      };
+
+    case GET_TOGGLE_SWITCH:
+      return {
+        ...state,
+        request: STATUSES.LOADING,
+        loading: action.payload,
       };
 
     default:
