@@ -50,8 +50,10 @@ const chatsReducer = (state = initialState, action) => {
       };
     case REMOVE_CHAT:
       return {
-        chatList: [state.chatList.filter(el => el.id !== action.chatId)]
+        ...state,
+        chatList: state.chatList.filter((el) => el.id !== action.chatId)
       }
+
     default:
       return state;
   }

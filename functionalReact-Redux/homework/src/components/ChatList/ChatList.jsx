@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
-import { addChat } from '../../store/Chats/chatsActions.js';
+import { addChat, removeChat } from '../../store/Chats/chatsActions.js';
 import { addNewMessageList } from '../../store/Messages/messagesActions.js';
 
 
@@ -33,9 +33,9 @@ export default function ChatList({ chatId }) {
   // const onAddNewMessageList = () => {
   //   dispatch(addNewMessageList(chatId));
   // }
-  // const onRemoveChat = () => {
-  //   dispatch(removeChat(chatId));
-  // };
+  const onRemoveChat = () => {
+    dispatch(removeChat(chatId));
+  };
 
   console.log(chats, chatId);
 
@@ -60,8 +60,11 @@ export default function ChatList({ chatId }) {
           display: 'flex',
           alignItems: 'center'
         }}>
-          <IconButton type="button" aria-label="delete" size="small">
+          <IconButton type="button" aria-label="delete" size="small"
+            onClick={onRemoveChat}
+          >
             <DeleteIcon fontSize="small" style={{ color: el.id === chatId ? '#4ebc7c' : "grey" }} />
+
           </IconButton>
         </div>
       </Link>
