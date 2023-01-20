@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
@@ -36,7 +36,7 @@ const MessageField = (props) => {
   // }, [chatId]);
 
   const [message, setMessage] = useState({ text: '', sender: '' })
-  const [bot, setBot] = useState({ text: '', sender: '' })
+  // const [bot, setBot] = useState({ text: '', sender: '' })
   // const [answer, setAnswer] = useState(true);
   console.log(message);
   const profileName = useSelector(state => state.profile.profileName);
@@ -117,7 +117,7 @@ const MessageField = (props) => {
   useEffect(() => {
     setTimeout(() => {
       scrollDown.current?.lastElementChild?.scrollIntoView({ behavior: 'smooth' });
-    }, 1000)
+    }, 500)
   }, [chatId, message])
 
   // console.log(state)

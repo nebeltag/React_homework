@@ -18,10 +18,11 @@ export default function Layout(props) {
   console.log(chatId);
   const chatList = useSelector((state) => state.chats.chatList);
   const [chats] = useState(chatList);
-
+  console.log(chatList);
+  console.log(chats);
 
   let contains = chats.find((i) => i.id === chatId);
-
+  console.log(contains);
   if (!contains) {
     return <Navigate to="/NoChat/" />
   }
